@@ -1,0 +1,5 @@
+# Instancia local e dados dos jogadores
+/server-data/
+
+# Cache do instalador
+/.downloads/

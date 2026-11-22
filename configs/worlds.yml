@@ -1,0 +1,36 @@
+minecraft:overworld:
+  auto-load: true
+  biome: ''
+  difficulty: normal
+  gamemode: survival
+  generator: ''
+  pvp: false
+  read-only:
+    environment: normal
+    legacy-world-name: lobby
+  version: 1.3
+minecraft:bedwars:
+  auto-load: true
+  adjust-spawn: false
+  gamemode: adventure
+  generator: ''
+  biome: ''
+  portal-form: none
+  pvp: true
+  read-only:
+    environment: normal
+    legacy-world-name: bedwars
+  version: 1.3
+minecraft:hungergames:
+  auto-load: true
+  adjust-spawn: false
+  gamemode: adventure
+  generator: ''
+  biome: ''
+  portal-form: none
+  pvp: true
+  hunger: true
+  read-only:
+    environment: normal
+    legacy-world-name: hungergames
+  version: 1.3

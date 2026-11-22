@@ -1,0 +1,60 @@
+[
+  {
+    "file": "paper.jar",
+    "url": "https://fill-data.papermc.io/v1/objects/5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba/paper-1.21.11-132.jar",
+    "sha256": "5FFEF465EEEB5F2A3C23A24419D97C51AFD7DBB4923FF42DF9A3F58BBA1CCFBA",
+    "destination": "paper.jar"
+  },
+  {
+    "file": "BedWars-0.2.44.jar",
+    "url": "https://hangarcdn.papermc.io/plugins/ScreamingSandals/ScreamingBedWars/versions/0.2.44/PAPER/BedWars-0.2.44.jar",
+    "sha256": "510D46D310DFF2A426461C5676051BBF19FF37B553EE0B9875597ABE4BA40D5C",
+    "destination": "plugins/BedWars-0.2.44.jar"
+  },
+  {
+    "file": "multiverse-core-5.8.2.jar",
+    "url": "https://hangarcdn.papermc.io/plugins/Multiverse/Multiverse-Core/versions/5.8.2/PAPER/multiverse-core-5.8.2.jar",
+    "sha256": "792252B6BBCF17C94AB8385E595281C830D7A40C946AEA1832D8A010702BB630",
+    "destination": "plugins/multiverse-core-5.8.2.jar"
+  },
+  {
+    "file": "HungerGames-5.1.1.jar",
+    "url": "https://cdn.modrinth.com/data/UPP8KYnj/versions/l3QYvO8R/HungerGames-5.1.1.jar",
+    "sha256": "289D7DA76B68CA0E656C4711EA22F027E2B223CCD34D9D82D59360A208C57D53",
+    "destination": "plugins/HungerGames-5.1.1.jar"
+  },
+  {
+    "file": "TheBridge-1.1.0.jar",
+    "url": "https://cdn.modrinth.com/data/HRVys83b/versions/DUV1myZd/TheBridge-1.1.0.jar",
+    "sha256": "26DDD1672A348FFC8DA99FF24BC10B040823CFF340CD2629BEECA58429330CA0",
+    "destination": "plugins/TheBridge-1.1.0.jar"
+  },
+  {
+    "file": "BuildBattle-5.1.8.jar",
+    "url": "https://cdn.spiget.org/file/spiget-resources/44703.jar",
+    "sha256": "346DB2AEAA18BAA879A337AF62CC4519DAAA915A1FDFEF78D5472AB935161665",
+    "destination": "plugins/BuildBattle-5.1.8.jar"
+  },
+  {
+    "file": "fragsoc-bedwars.zip",
+    "url": "https://media.githubusercontent.com/media/FragSoc/minecraft-minigames/2bc1878e60ea8bccac655d0815de58d9c18461b2/static_maps/bedwars/world.zip",
+    "sha256": "8B16452F4673E7ACEFE42D5F530B9BF47C07C24668534D379B134E0B39267C58",
+    "world": "bedwars"
+  },
+  {
+    "file": "fragsoc-hungergames.zip",
+    "url": "https://media.githubusercontent.com/media/FragSoc/minecraft-minigames/2bc1878e60ea8bccac655d0815de58d9c18461b2/static_maps/hungergames/world.zip",
+    "sha256": "D7C18EFD4BE74DA5AF8386C27D72641606388874E75964D74AB69CA5C7A0D200",
+    "world": "hungergames"
+  },
+  {
+    "file": "fragsoc-bedwars.yml",
+    "url": "https://raw.githubusercontent.com/FragSoc/minecraft-minigames/2bc1878e60ea8bccac655d0815de58d9c18461b2/static_maps/bedwars/Arena.yml",
+    "sha256": "0331DE6066717A06B309888050A505C31E96949B114E6D1BA201C81E60AAA8FB"
+  },
+  {
+    "file": "fragsoc-hungergames.yml",
+    "url": "https://raw.githubusercontent.com/FragSoc/minecraft-minigames/2bc1878e60ea8bccac655d0815de58d9c18461b2/static_maps/hungergames/arenas.yml",
+    "sha256": "6A618057C2602B5D9EAC6C72C89F8920D095B114265D577259C1FB88046C78FA"
+  }
+]

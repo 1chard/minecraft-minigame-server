@@ -1,0 +1,26 @@
+  construcao:
+    lobbylocation: 'lobby,0.5,110.0,6.5,180.0,0.0'
+    startlocation: 'construcao,0.5,100.0,0.5,0.0,0.0'
+    endlocation: 'lobby,0.5,110.0,6.5,180.0,0.0'
+    spectatorlocation: 'construcao,0.5,108.0,0.5,0.0,0.0'
+    minimumplayers: 2
+    maximumplayers: 4
+    plotmembersize: 1
+    mapname: Atelie
+    world: construcao
+    gametype: classic
+    isdone: true
+    signs: {}
+    plots:
+      laranja:
+        '1': 'construcao,-22.0,99.0,-22.0,0.0,0.0'
+        '2': 'construcao,-6.0,119.0,-6.0,0.0,0.0'
+      azul:
+        '1': 'construcao,6.0,99.0,-22.0,0.0,0.0'
+        '2': 'construcao,22.0,119.0,-6.0,0.0,0.0'
+      verde:
+        '1': 'construcao,-22.0,99.0,6.0,0.0,0.0'
+        '2': 'construcao,-6.0,119.0,22.0,0.0,0.0'
+      rosa:
+        '1': 'construcao,6.0,99.0,6.0,0.0,0.0'
+        '2': 'construcao,22.0,119.0,22.0,0.0,0.0'
