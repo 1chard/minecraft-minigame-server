@@ -1,10 +1,18 @@
 minecraft:overworld:
+  adjust-spawn: false
   auto-load: true
   biome: ''
   difficulty: normal
-  gamemode: survival
+  gamemode: adventure
   generator: ''
   pvp: false
+  spawn-location:
+    ==: MVSpawnLocation
+    x: 0.5
+    y: 110.0
+    z: 6.5
+    yaw: 180.0
+    pitch: 0.0
   read-only:
     environment: normal
     legacy-world-name: lobby

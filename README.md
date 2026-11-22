@@ -11,7 +11,7 @@ Servidor local de **Minecraft Java Edition 1.21.11** com Paper build 132. O Powe
 
 O Multiverse-Core 5.8.2 carrega os mundos `bedwars`, `hungergames`, `ponte` e `construcao`. As três arenas de Hunger Games ocupam regiões distintas do mesmo mundo. Os jogadores entram na praça `lobby` e escolhem uma arena pelas placas ou pelos comandos abaixo. As arenas iniciais foram ajustadas para começar com pelo menos dois jogadores.
 
-O PvP está desligado na praça. BedWars, Hunger Games e The Bridge usam dificuldade Normal e têm a regeneração natural de vida desligada. Os itens e efeitos de cura continuam funcionando conforme as regras de cada minijogo.
+A praça fica em um mundo vazio e os jogadores entram em modo Aventura, com o PvP desligado. BedWars, Hunger Games e The Bridge usam dificuldade Normal e têm a regeneração natural de vida desligada. Os itens e efeitos de cura continuam funcionando conforme as regras de cada minijogo.
 
 ## Instalação e início
 
