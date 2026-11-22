@@ -7,11 +7,16 @@ Servidor local de **Minecraft Java Edition 1.21.11** com Paper build 132. O Powe
 | BedWars | ScreamingBedWars 0.2.44 | `ilhas` |
 | Hunger Games | HungerGames 5.1.1 | `first`, `second`, `third` |
 | The Bridge | TheBridge 1.1.0 | `ponte` (1v1, cinco gols) |
-| Build Battle | BuildBattle 5.1.8 | `construcao` (Ateliê, dois a quatro jogadores) |
+| Build Battle | BuildBattle 5.1.8 | `construcao` (Ateliê, dois a quatro jogadores, cinco minutos de construção) |
+| Build Battle | BuildBattle 5.1.8 | `atelie_solo` (Solo, dois a oito jogadores) e `atelie_duplas` (Duplas, quatro a oito jogadores) |
 
 O Multiverse-Core 5.8.2 carrega os mundos `bedwars`, `hungergames`, `ponte` e `construcao`. As três arenas de Hunger Games ocupam regiões distintas do mesmo mundo. Os jogadores entram na praça `lobby` e escolhem uma arena pelas placas ou pelos comandos abaixo. As arenas iniciais foram ajustadas para começar com pelo menos dois jogadores.
 
 A praça fica em um mundo vazio e os jogadores entram em modo Aventura, com o PvP desligado. BedWars, Hunger Games e The Bridge usam dificuldade Normal e têm a regeneração natural de vida desligada. Os itens e efeitos de cura continuam funcionando conforme as regras de cada minijogo.
+
+No Build Battle, as paredes opacas separam os terrenos durante a construção. Depois dos cinco minutos de construção, o plugin leva os jogadores a cada terreno para votar.
+
+Para mudar o piso durante a construção, coloque um bloco sólido, como pedra, na barra rápida. Abra o menu de opções do terreno, pegue o bloco com o cursor no inventário e clique no ícone **Change floor material** com o bloco no cursor. Jogadores comuns também podem usar as opções de biomas, cabeças decorativas e partículas.
 
 ## Instalação e início
 
@@ -62,6 +67,8 @@ Na primeira inicialização com o datapack, o servidor monta uma praça elevada 
 | `/thebridge join ponte` | Entrar na Ponte 1v1 |
 | `/thebridge leave` | Sair da fila ou da partida de The Bridge |
 | `/buildbattle join construcao` | Entrar no Ateliê para construir no criativo e votar |
+| `/buildbattle join atelie_solo` | Entrar no Solo 8, com um jogador por terreno |
+| `/buildbattle join atelie_duplas` | Entrar em Duplas, com até quatro equipes de dois jogadores |
 | `/buildbattle leave` | Sair da fila ou da partida de Build Battle |
 
 Para conferir o carregamento, veja `server-data/logs/latest.log`. Para testar uma partida, entre na mesma arena com duas contas Java e confira o início, o fim e a restauração do mapa ao jogar de novo. [Comandos do BedWars](https://docs.screamingsandals.org/BedWars/latest/commands/) · [Comandos do HungerGames](https://github.com/ShaneBeeStudios/HungerGames/wiki/Commands-Permissions)

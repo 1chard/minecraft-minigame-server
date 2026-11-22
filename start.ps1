@@ -6,6 +6,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'scripts/upnp.ps1')
+. (Join-Path $PSScriptRoot 'scripts/buildbattle.ps1')
 $server = Join-Path $PSScriptRoot 'server-data'
 if (-not (Test-Path -LiteralPath (Join-Path $server 'paper.jar'))) {
     throw 'Execute .\setup.ps1 antes de iniciar o servidor.'
@@ -32,6 +33,7 @@ $description = 'Minecraft-' + [guid]::NewGuid().ToString('N').Substring(0, 8)
 try {
     $serverArguments = @('--nogui')
     $properties = Join-Path $server 'server.properties'
+    Set-BuildBattleDefaults $server
     if ((Get-PaperProperty $properties 'level-name' 'world') -ceq 'lobby') {
         $datapacks = Join-Path $server 'lobby/datapacks'
         New-Item -ItemType Directory -Force -Path $datapacks | Out-Null

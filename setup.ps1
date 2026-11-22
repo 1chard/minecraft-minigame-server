@@ -60,7 +60,7 @@ function Get-Download($Item) {
     return $path
 }
 
-function Install-World($Archive, $Name) {
+function Install-World($Archive, $Name, $ArchiveName = $Name) {
     $destination = Join-Path $server $Name
     if (Test-Path -LiteralPath $destination) {
         if (-not (Test-Path -LiteralPath (Join-Path $destination 'level.dat'))) { throw "Mundo incompleto em $destination." }
@@ -68,10 +68,10 @@ function Install-World($Archive, $Name) {
     }
 
     $staging = Join-Path $cache ([guid]::NewGuid().ToString())
-    $world = Join-Path $staging "$Name/world"
+    $world = Join-Path $staging "$ArchiveName/world"
     New-Item -ItemType Directory -Path $staging | Out-Null
     try {
-        & tar.exe -xf $Archive -C $staging "$Name/world"
+        & tar.exe -xf $Archive -C $staging "$ArchiveName/world"
         if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath (Join-Path $world 'level.dat')) -or -not (Test-Path -LiteralPath (Join-Path $world 'region'))) {
             throw "Mundo invalido em $Archive."
         }
@@ -166,8 +166,10 @@ function Add-YamlEntry($Path, $ExistingPattern, $Entry, $Parent = '') {
 
 function Install-AdditionalArenas {
     $worlds = Join-Path $plugins 'Multiverse-Core/worlds.yml'
-    foreach ($name in 'ponte', 'construcao') {
-        Install-World (Join-Path $PSScriptRoot "maps/$name.zip") $name
+    foreach ($name in 'ponte', 'construcao', 'atelie_solo', 'atelie_duplas') {
+        $archiveName = $name
+        if ($name -like 'atelie_*') { $archiveName = 'construcao' }
+        Install-World (Join-Path $PSScriptRoot "maps/$archiveName.zip") $name $archiveName
         $pvp = ($name -eq 'ponte').ToString().ToLowerInvariant()
         $spawnX = '0.5'
         $spawnYaw = '0.0'
@@ -202,10 +204,29 @@ minecraft:${name}:
 
     $bridgeArena = [IO.File]::ReadAllText((Join-Path $configs 'arenas/ponte.yml'))
     Write-NewConfig (Join-Path $plugins 'TheBridge/arenas/ponte.yml') $bridgeArena
-    $buildArena = [IO.File]::ReadAllText((Join-Path $configs 'arenas/construcao.yml')).TrimEnd("`r", "`n")
-    Add-YamlEntry (Join-Path $plugins 'BuildBattle/arenas.yml') '(?m)^  ["'']?construcao["'']?:' "$buildArena`n" 'instances'
     $permissions = Join-Path $server 'permissions.yml'
-    Add-YamlEntry $permissions '(?m)^["'']?buildbattle\.join\.construcao["'']?:' "buildbattle.join.construcao:`n  default: true"
+    foreach ($arena in 'construcao', 'atelie_solo', 'atelie_duplas') {
+        $buildArena = [IO.File]::ReadAllText((Join-Path $configs "arenas/$arena.yml")).TrimEnd("`r", "`n")
+        Add-YamlEntry (Join-Path $plugins 'BuildBattle/arenas.yml') "(?m)^  [""']?${arena}[""']?:" "$buildArena`n" 'instances'
+        Add-YamlEntry $permissions "(?m)^[""']?buildbattle\.join\.${arena}[""']?:" "buildbattle.join.${arena}:`n  default: true"
+    }
+    $extraModes = @'
+minigames.buildbattle-gamemode:
+  default: true
+  children:
+    mv.bypass.gamemode.atelie_solo: true
+    mv.bypass.gamemode.atelie_duplas: true
+'@
+    Add-YamlEntry $permissions '(?m)^["'']?minigames\.buildbattle-gamemode["'']?:' $extraModes
+    $plotOptions = @'
+minigames.buildbattle-plot-options:
+  default: true
+  children:
+    biomes.vip: true
+    buildbattle.heads: true
+    buildbattle.particles: true
+'@
+    Add-YamlEntry $permissions '(?m)^["'']?minigames\.buildbattle-plot-options["'']?:' $plotOptions
     # The game plugins set and restore player modes for their matches.
     $gameModes = @'
 minigames.arena-gamemode:

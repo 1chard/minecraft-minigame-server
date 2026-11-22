@@ -1,0 +1,38 @@
+  atelie_solo:
+    lobbylocation: 'lobby,0.5,110.0,6.5,180.0,0.0'
+    startlocation: 'atelie_solo,0.5,100.0,0.5,0.0,0.0'
+    endlocation: 'lobby,0.5,110.0,6.5,180.0,0.0'
+    spectatorlocation: 'atelie_solo,0.5,108.0,0.5,0.0,0.0'
+    minimumplayers: 2
+    maximumplayers: 8
+    plotmembersize: 1
+    mapname: Ateliê Solo 8
+    world: atelie_solo
+    gametype: classic
+    isdone: true
+    signs: {}
+    plots:
+      terreno1:
+        '1': 'atelie_solo,-22.0,99.0,-22.0,0.0,0.0'
+        '2': 'atelie_solo,-6.0,119.0,-6.0,0.0,0.0'
+      terreno2:
+        '1': 'atelie_solo,6.0,99.0,-22.0,0.0,0.0'
+        '2': 'atelie_solo,22.0,119.0,-6.0,0.0,0.0'
+      terreno3:
+        '1': 'atelie_solo,-22.0,99.0,6.0,0.0,0.0'
+        '2': 'atelie_solo,-6.0,119.0,22.0,0.0,0.0'
+      terreno4:
+        '1': 'atelie_solo,6.0,99.0,6.0,0.0,0.0'
+        '2': 'atelie_solo,22.0,119.0,22.0,0.0,0.0'
+      terreno5:
+        '1': 'atelie_solo,-22.0,99.0,34.0,0.0,0.0'
+        '2': 'atelie_solo,-6.0,119.0,50.0,0.0,0.0'
+      terreno6:
+        '1': 'atelie_solo,6.0,99.0,34.0,0.0,0.0'
+        '2': 'atelie_solo,22.0,119.0,50.0,0.0,0.0'
+      terreno7:
+        '1': 'atelie_solo,-22.0,99.0,62.0,0.0,0.0'
+        '2': 'atelie_solo,-6.0,119.0,78.0,0.0,0.0'
+      terreno8:
+        '1': 'atelie_solo,6.0,99.0,62.0,0.0,0.0'
+        '2': 'atelie_solo,22.0,119.0,78.0,0.0,0.0'

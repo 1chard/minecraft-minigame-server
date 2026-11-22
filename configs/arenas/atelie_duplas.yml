@@ -1,0 +1,26 @@
+  atelie_duplas:
+    lobbylocation: 'lobby,0.5,110.0,6.5,180.0,0.0'
+    startlocation: 'atelie_duplas,0.5,100.0,0.5,0.0,0.0'
+    endlocation: 'lobby,0.5,110.0,6.5,180.0,0.0'
+    spectatorlocation: 'atelie_duplas,0.5,108.0,0.5,0.0,0.0'
+    minimumplayers: 4
+    maximumplayers: 8
+    plotmembersize: 2
+    mapname: Ateliê Duplas
+    world: atelie_duplas
+    gametype: classic
+    isdone: true
+    signs: {}
+    plots:
+      terreno1:
+        '1': 'atelie_duplas,-22.0,99.0,-22.0,0.0,0.0'
+        '2': 'atelie_duplas,-6.0,119.0,-6.0,0.0,0.0'
+      terreno2:
+        '1': 'atelie_duplas,6.0,99.0,-22.0,0.0,0.0'
+        '2': 'atelie_duplas,22.0,119.0,-6.0,0.0,0.0'
+      terreno3:
+        '1': 'atelie_duplas,-22.0,99.0,6.0,0.0,0.0'
+        '2': 'atelie_duplas,-6.0,119.0,22.0,0.0,0.0'
+      terreno4:
+        '1': 'atelie_duplas,6.0,99.0,6.0,0.0,0.0'
+        '2': 'atelie_duplas,22.0,119.0,22.0,0.0,0.0'
