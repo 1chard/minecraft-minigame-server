@@ -6,6 +6,12 @@
     "destination": "paper.jar"
   },
   {
+    "file": "ViaVersion-5.12.3.jar",
+    "url": "https://cdn.modrinth.com/data/P1OZGk5p/versions/MBRBVfoZ/ViaVersion-5.12.3.jar",
+    "sha256": "8DEC6B62C7EC4F355E59175FC8EAEB825719AE8D308723617097DCAAB7073531",
+    "destination": "plugins/ViaVersion-5.12.3.jar"
+  },
+  {
     "file": "BedWars-0.2.44.jar",
     "url": "https://hangarcdn.papermc.io/plugins/ScreamingSandals/ScreamingBedWars/versions/0.2.44/PAPER/BedWars-0.2.44.jar",
     "sha256": "510D46D310DFF2A426461C5676051BBF19FF37B553EE0B9875597ABE4BA40D5C",

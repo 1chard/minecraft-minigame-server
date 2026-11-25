@@ -2,6 +2,8 @@
 
 Servidor local de **Minecraft Java Edition 1.21.11** com Paper build 132. O PowerShell instala os plugins e os mapas existentes e inicia o Paper diretamente com o Java do Windows.
 
+O ViaVersion permite que clientes Java mais novos, até a versão 26.3, entrem no servidor 1.21.11. O suporte a novos protocolos depende de atualizações do plugin. [ViaVersion](https://modrinth.com/plugin/viaversion)
+
 | Modo | Plugin | Arenas instaladas |
 | --- | --- | --- |
 | BedWars | ScreamingBedWars 0.2.44 | `ilhas` |
