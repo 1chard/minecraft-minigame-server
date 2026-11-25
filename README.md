@@ -9,6 +9,9 @@ O ViaVersion permite que clientes Java mais novos, até a versão 26.3, entrem n
 | BedWars | ScreamingBedWars 0.2.44 | `ilhas` |
 | Hunger Games | HungerGames 5.1.1 | `first`, `second`, `third` |
 | The Bridge | The Bridge 4.1.0 | 1x1, 2x2, 3x3, 4x4, 1x1x1x1 e 2x2x2x2 |
+| TNT Run | TNTRun 2.9.1 | `torre` (Torre de Areia, de dois a oito jogadores, três andares) |
+| Esconde-esconde | Hide and Hunt 1.6.0 | Mapas gerados pelo plugin, com partidas em grupo |
+| Sumô e Pilares da Fortuna | Minigames Framework 1.0.0 | Duelo 1x1 nos dois modos, Sumô de 3 a 4 jogadores e Pilares de 3 a 4 ou de 6 a 8 jogadores |
 | Build Battle | BuildBattle 5.1.8 | `construcao` (Ateliê, dois a quatro jogadores, cinco minutos de construção) |
 | Build Battle | BuildBattle 5.1.8 | `atelie_solo` (Solo, dois a oito jogadores) e `atelie_duplas` (Duplas, quatro a oito jogadores) |
 
@@ -22,12 +25,12 @@ Para mudar o piso durante a construção, coloque um bloco sólido, como pedra, 
 
 ## Instalação e início
 
-Use Java 21 ou superior no `PATH` e execute os comandos abaixo em um PowerShell aberto na pasta do projeto. A primeira instalação e o primeiro início precisam de internet. Se precisar instalar o Java, use o instalador Windows do [Eclipse Temurin 21](https://adoptium.net/temurin/releases/?version=21&os=windows).
+Use Java 25 ou superior no `PATH` e execute os comandos abaixo em um PowerShell aberto na pasta do projeto. A primeira instalação e o primeiro início precisam de internet. Se precisar instalar o Java, use o instalador Windows do [Eclipse Temurin 25](https://adoptium.net/temurin/releases/?version=25&os=windows).
 
 Leia a [EULA do Minecraft](https://www.minecraft.net/pt-br/eula). Execute a primeira linha se aceitar os termos.
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -AcceptEula
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -AcceptEula -Offline
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\start.ps1
 ```
 
@@ -37,7 +40,7 @@ Em uma instalação que veio de uma versão anterior do projeto, pare o servidor
 
 ## Modo offline
 
-Instalações novas usam autenticação do Minecraft por padrão. Para instalar em modo offline, acrescente `-Offline` à linha de instalação. Para ativá-lo em uma instalação existente, pare o servidor com `stop` e execute:
+Instalações novas usam autenticação do Minecraft por padrão. Para instalar com autenticação, remova `-Offline` à linha de instalação. Para ativá-lo em uma instalação existente, pare o servidor com `stop` e execute:
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -Offline
@@ -57,7 +60,7 @@ Em modo offline, o servidor aceita nomes sem verificar a identidade do jogador. 
 
 Abra **Multijogador** no Minecraft Java **1.21.11** e conecte a `127.0.0.1:25565`.
 
-Na primeira inicialização com o datapack, o servidor monta uma praça elevada no mundo `lobby` e define o ponto de entrada acima do piso. Quem reconectar no spawn antigo ou cair na antiga sala de espera do Hunger Games é levado à praça. Na entrada ficam **BedWars — Ilhas** e **Sair da fila do Hunger Games**. As placas de **The Bridge** ficam à esquerda, as de **Build Battle** à direita e as três arenas de Hunger Games ao fundo. Use o botão direito na frente da placa desejada ou digite o comando no chat.
+O datapack monta uma praça elevada no mundo `lobby`. A partir da entrada, **BedWars**, **Hunger Games**, **TNT Run** e **Sumô** ficam à esquerda. **Esconde-esconde**, **Build Battle** e **Pilares** ficam à direita. **The Bridge** ocupa a galeria ao fundo. Cada área reúne as placas de entrada e saída do jogo. Use o botão direito na frente da placa desejada ou digite o comando no chat.
 
 | No chat do jogo | Ação |
 | --- | --- |
@@ -73,12 +76,26 @@ Na primeira inicialização com o datapack, o servidor monta uma praça elevada 
 | `/tb join ponte_4times_solo` | Quatro times de um jogador |
 | `/tb join ponte_4times_duplas` | Quatro times de dois jogadores |
 | `/tb leave` | Sair da fila ou da partida de The Bridge |
+| `/tr join torre` | Entrar na Torre de Areia do TNT Run |
+| `/tr leave` | Sair da fila ou da partida de TNT Run |
+| `/vj lobby` | Ir ao lobby de esconde-esconde |
+| `/vj play` | Abrir o menu para criar ou entrar em uma partida de esconde-esconde |
+| `/vj leave` | Sair da partida de esconde-esconde |
+| `/trigger lobby_principal` | Voltar ao lobby principal a partir do lobby de esconde-esconde |
+| `/mg sumo join type1` | Entrar no duelo de Sumô |
+| `/mg pillars join type1` | Entrar no duelo de Pilares da Fortuna |
+| `/mg sumo join type2` | Entrar no Sumô para 3 a 4 jogadores |
+| `/mg pillars join type2` | Entrar em Pilares para 3 a 4 jogadores |
+| `/mg pillars join type3` | Entrar em Pilares para 6 a 8 jogadores |
+| `/mg leave` | Sair da fila ou partida de Sumô ou Pilares |
 | `/buildbattle join construcao` | Entrar no Ateliê para construir no criativo e votar |
 | `/buildbattle join atelie_solo` | Entrar no Solo 8, com um jogador por terreno |
 | `/buildbattle join atelie_duplas` | Entrar em Duplas, com até quatro equipes de dois jogadores |
 | `/buildbattle leave` | Sair da fila ou da partida de Build Battle |
 
 Para conferir o carregamento, veja `server-data/logs/latest.log`. Para testar uma partida, entre na mesma arena com duas contas Java e confira o início, o fim e a restauração do mapa ao jogar de novo. [Comandos do BedWars](https://docs.screamingsandals.org/BedWars/latest/commands/) · [Comandos do HungerGames](https://github.com/ShaneBeeStudios/HungerGames/wiki/Commands-Permissions)
+
+No Hide and Hunt, entre pela placa **Esconde-esconde**, use o portal do modo desejado ou abra `/vj play`. Crie um grupo, convide os amigos e escolha o mapa. Ao terminar a partida, usar `/vj leave` ou reconectar em um mundo do minigame, o jogador volta ao hub principal. Para sair da sala de espera, pise no piso verde junto à placa **Hub principal** ou use `/trigger lobby_principal`. [Hide and Hunt](https://modrinth.com/plugin/hide-and-hunt)
 
 ## Jogar em rede local
 

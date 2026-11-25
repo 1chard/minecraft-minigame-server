@@ -167,23 +167,44 @@ function Add-YamlEntry($Path, $ExistingPattern, $Entry, $Parent = '') {
 function Install-AdditionalArenas {
     $bridgeModes = [ordered]@{ ponte = 1; ponte_2x2 = 2; ponte_3x3 = 3; ponte_4x4 = 4; ponte_4times_solo = 1; ponte_4times_duplas = 2 }
     $worlds = Join-Path $plugins 'Multiverse-Core/worlds.yml'
-    foreach ($name in @($bridgeModes.Keys) + @('construcao', 'atelie_solo', 'atelie_duplas')) {
+    $frameworkArenas = [ordered]@{
+        sumo_duelo = 'sumo/duelo'
+        sumo_4 = 'sumo/quatro'
+        pilares_duelo = 'pillars/duelo'
+        pilares_4 = 'pillars/quatro'
+        pilares_8 = 'pillars/oito'
+    }
+    foreach ($name in @($bridgeModes.Keys) + @('construcao', 'atelie_solo', 'atelie_duplas', 'tnt_run') + @($frameworkArenas.Keys)) {
         $archiveName = $name
         if ($name -like 'atelie_*') { $archiveName = 'construcao' }
         if ($bridgeModes.Contains($name)) { $archiveName = 'ponte' }
-        Install-World (Join-Path $PSScriptRoot "maps/$archiveName.zip") $name $archiveName
         $pvp = $bridgeModes.Contains($name).ToString().ToLowerInvariant()
         $spawnX = '0.5'
+        $spawnY = '100.0'
         $spawnYaw = '0.0'
+        $gameMode = 'adventure'
         if ($pvp -eq 'true') {
             $spawnX = '-21.5'
             $spawnYaw = '-90.0'
         }
+        if ($name -eq 'tnt_run') {
+            $archiveName = 'ponte'
+            $spawnX = '24.5'
+            $spawnY = '65.0'
+        }
+        if ($frameworkArenas.Contains($name)) {
+            $archiveName = 'ponte'
+            $pvp = 'true'
+            if ($name -eq 'pilares_duelo') { $spawnX = '-6.5' }
+            if ($name -in 'pilares_4', 'pilares_8') { $spawnX = '-8.5' }
+        }
+        if ($name -like 'pilares_*') { $gameMode = 'survival' }
+        Install-World (Join-Path $PSScriptRoot "maps/$archiveName.zip") $name $archiveName
         $world = @"
 minecraft:${name}:
   auto-load: true
   adjust-spawn: false
-  gamemode: adventure
+  gamemode: $gameMode
   generator: ''
   biome: ''
   portal-form: none
@@ -191,7 +212,7 @@ minecraft:${name}:
   spawn-location:
     ==: MVSpawnLocation
     x: $spawnX
-    y: 100.0
+    y: $spawnY
     z: 0.5
     yaw: $spawnYaw
     pitch: 0.0
@@ -204,8 +225,78 @@ minecraft:${name}:
         Add-YamlEntry $worlds "(?m)^[""']?(?:minecraft:)?${name}[""']?:" $world
     }
 
+    # Pillars inherits the world gamemode; migrate the previously installed worlds.
+    $worldContent = [IO.File]::ReadAllText($worlds)
+    $updatedWorlds = [regex]::Replace($worldContent, '(?ms)^["'']?(?:minecraft:)?pilares_(?:duelo|4|8)["'']?:[^\r\n]*(?:\r?\n[ \t][^\r\n]*)*', {
+        param($world)
+        $world.Value -creplace '(?m)^(  gamemode:[ \t]*)adventure\b', '${1}survival'
+    })
+    if ($updatedWorlds -cne $worldContent) {
+        [IO.File]::WriteAllText($worlds, $updatedWorlds, $utf8)
+    }
+
     $permissions = Join-Path $server 'permissions.yml'
     Install-Bridge $bridgeModes $permissions
+    $tntArena = [IO.File]::ReadAllText((Join-Path $configs 'arenas/torre.yml'))
+    Add-YamlEntry (Join-Path $plugins 'TNTRun/arenas.yml') '(?m)^["'']?torre["'']?:' $tntArena
+    $framework = Join-Path $plugins 'MinigameFramework'
+    Write-NewConfig (Join-Path $framework 'config.yml') @'
+settings:
+  spawn_world: lobby
+'@
+    foreach ($name in $frameworkArenas.Keys) {
+        $arenaPath = Join-Path $framework "arenas/$($frameworkArenas[$name]).yml"
+        Write-NewConfig $arenaPath ([IO.File]::ReadAllText((Join-Path $configs "arenas/$name.yml")))
+    }
+    Add-YamlEntry $permissions '(?m)^minigames\.framework-gamemode:' @'
+minigames.framework-gamemode:
+  default: true
+  children:
+    mv.bypass.gamemode.sumo_duelo: true
+'@
+    $largerArenaModes = @'
+minigames.framework-ffa-gamemode:
+  default: true
+  children:
+    mv.bypass.gamemode.sumo_4: true
+'@
+    Add-YamlEntry $permissions '(?m)^minigames\.framework-ffa-gamemode:' $largerArenaModes
+    $permissionContent = [IO.File]::ReadAllText($permissions)
+    $updatedPermissions = [regex]::Replace($permissionContent, '(?ms)^minigames\.framework-(?:ffa-)?gamemode:[^\r\n]*(?:\r?\n[ \t][^\r\n]*)*', {
+        param($group)
+        $group.Value -creplace '(?m)^    mv\.bypass\.gamemode\.pilares_(?:duelo|4|8):[ \t]*true[ \t]*(?:\r?\n|\z)', ''
+    })
+    if ($updatedPermissions -cne $permissionContent) {
+        [IO.File]::WriteAllText($permissions, $updatedPermissions, $utf8)
+    }
+    $hideConfig = Join-Path $plugins 'HideAndHunt/config.yml'
+    Write-NewConfig $hideConfig @'
+config-version: 7
+sprache: en
+lobby:
+  beim-betreten: false
+  beim-respawn: false
+ressourcenpaket:
+  aktiv: false
+'@
+    $content = [IO.File]::ReadAllText($hideConfig)
+    $packSection = '(?m)^ressourcenpaket:[^\r\n]*(?:\r?\n[ \t]+[^\r\n]*)*'
+    $updated = if ($content -cmatch $packSection) {
+        [regex]::Replace($content, $packSection, {
+            param($section)
+            $enabled = '(?m)^(  aktiv:[ \t]*)[^ \t\r\n#]+'
+            if ($section.Value -cmatch $enabled) {
+                $section.Value -creplace $enabled, '${1}false'
+            } else {
+                $section.Value + "`n  aktiv: false"
+            }
+        })
+    } else {
+        $content.TrimEnd("`r", "`n") + "`nressourcenpaket:`n  aktiv: false`n"
+    }
+    if ($updated -cne $content) {
+        [IO.File]::WriteAllText($hideConfig, $updated, $utf8)
+    }
     foreach ($arena in 'construcao', 'atelie_solo', 'atelie_duplas') {
         $buildArena = [IO.File]::ReadAllText((Join-Path $configs "arenas/$arena.yml")).TrimEnd("`r", "`n")
         Add-YamlEntry (Join-Path $plugins 'BuildBattle/arenas.yml') "(?m)^  [""']?${arena}[""']?:" "$buildArena`n" 'instances'

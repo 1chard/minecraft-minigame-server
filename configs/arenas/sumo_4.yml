@@ -1,0 +1,11 @@
+world: sumo_4
+spawns:
+  - {x: -5.5, y: 100.0, z: 0.5, yaw: -90.0, pitch: 0.0}
+  - {x: 6.5, y: 100.0, z: 0.5, yaw: 90.0, pitch: 0.0}
+  - {x: 0.5, y: 100.0, z: -5.5, yaw: 0.0, pitch: 0.0}
+  - {x: 0.5, y: 100.0, z: 6.5, yaw: 180.0, pitch: 0.0}
+platform:
+  corner1: {x: -8, z: -8}
+  corner2: {x: 8, z: 8}
+  floor_y: 99
+  dq_y: 91

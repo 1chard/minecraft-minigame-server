@@ -1,6 +1,11 @@
-# Replace just the original BedWars stand if it still carries the old join action.
-execute if data block -8 111 -5 front_text.messages[{click_event:{command:"/bw join ilhas"}}] if block -8 110 -5 minecraft:red_terracotta run setblock -8 110 -5 minecraft:air
-setblock -2 110 3 minecraft:red_terracotta
-setblock 2 110 3 minecraft:yellow_terracotta
-setblock -2 111 3 minecraft:spruce_sign[rotation=0]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:[{text:"BEDWARS",color:"red",bold:true},{text:"Ilhas"},{text:"Entrar na arena",color:"yellow",click_event:{action:"run_command",command:"/bw join ilhas"}},{text:""}]}}
-setblock 2 111 3 minecraft:spruce_sign[rotation=0]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:[{text:"HUNGER GAMES",color:"gold",bold:true},{text:"Sair da fila",color:"yellow",click_event:{action:"run_command",command:"/hg leave"}},{text:"/hg leave"},{text:""}]}}
+execute positioned -15 110 9 run function minigames:lobby_sign {rotation:12,title:"BEDWARS",color:"red",mode:"Ilhas",action:"Entrar",command:"/bw join ilhas"}
+execute positioned -15 110 7 run function minigames:lobby_sign {rotation:12,title:"BEDWARS",color:"red",mode:"Fila / partida",action:"Sair",command:"/bw leave"}
+execute positioned -15 110 3 run function minigames:lobby_sign {rotation:12,title:"HUNGER GAMES",color:"green",mode:"First",action:"Entrar",command:"/hg join first"}
+execute positioned -15 110 1 run function minigames:lobby_sign {rotation:12,title:"HUNGER GAMES",color:"green",mode:"Second",action:"Entrar",command:"/hg join second"}
+execute positioned -15 110 -1 run function minigames:lobby_sign {rotation:12,title:"HUNGER GAMES",color:"green",mode:"Third",action:"Entrar",command:"/hg join third"}
+execute positioned -15 110 -3 run function minigames:lobby_sign {rotation:12,title:"HUNGER GAMES",color:"green",mode:"Fila / partida",action:"Sair",command:"/hg leave"}
+execute positioned 15 110 8 run function minigames:lobby_sign {rotation:4,title:"Esconde-esconde",color:"green",mode:"Hide and Hunt",action:"Entrar",command:"/vj lobby"}
+setblock -3 110 4 minecraft:polished_deepslate
+setblock 3 110 4 minecraft:polished_deepslate
+setblock -3 111 4 minecraft:spruce_sign[rotation=0]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:[{text:"À esquerda",color:"gold"},{text:"BedWars"},{text:"Hunger Games"},{text:"TNT Run / Sumô"}]}}
+setblock 3 111 4 minecraft:spruce_sign[rotation=0]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:[{text:"À direita",color:"gold"},{text:"Esconde-esconde"},{text:"Build Battle"},{text:"Pilares"}]}}

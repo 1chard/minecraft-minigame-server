@@ -1,0 +1,9 @@
+torre:
+  ready: true
+  map-name: Torre de Areia
+  min-players: 2
+  max-players: 8
+  lobby: {==: org.bukkit.Location, world: tnt_run, x: 24.5, y: 65.0, z: 0.5, yaw: 90.0, pitch: 0.0}
+  start: {==: org.bukkit.Location, world: tnt_run, x: 0.5, y: 65.0, z: 0.5, yaw: 0.0, pitch: 0.0}
+  end: {==: org.bukkit.Location, world: lobby, x: 0.5, y: 110.0, z: 6.5, yaw: 180.0, pitch: 0.0}
+  arena-pvp-enabled: false

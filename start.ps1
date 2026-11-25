@@ -17,8 +17,8 @@ if (-not (Test-Path -LiteralPath $eula) -or -not (Select-String -LiteralPath $eu
 }
 $java = Get-Command java.exe -CommandType Application | Select-Object -First 1
 $version = & $java.Source --version | Select-Object -First 1
-if ($version -notmatch '^[\w-]+\s+(\d+)' -or [int] $Matches[1] -lt 21) {
-    throw "O Paper 1.21.11 requer Java 21 ou superior no PATH. Detectado: $version"
+if ($version -notmatch '^[\w-]+\s+(\d+)' -or [int] $Matches[1] -lt 25) {
+    throw "O TNT Run requer Java 25 ou superior no PATH. Detectado: $version"
 }
 
 $lockPath = Join-Path $server 'server.lock'

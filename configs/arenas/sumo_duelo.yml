@@ -1,0 +1,9 @@
+world: sumo_duelo
+spawns:
+  - {x: -2.5, y: 100.0, z: 0.5, yaw: -90.0, pitch: 0.0}
+  - {x: 3.5, y: 100.0, z: 0.5, yaw: 90.0, pitch: 0.0}
+platform:
+  corner1: {x: -5, z: -5}
+  corner2: {x: 5, z: 5}
+  floor_y: 99
+  dq_y: 91

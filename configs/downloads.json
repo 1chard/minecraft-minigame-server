@@ -6,6 +6,24 @@
     "destination": "paper.jar"
   },
   {
+    "file": "minigame-framework-1.0.0.jar",
+    "url": "https://cdn.modrinth.com/data/3LIXuqln/versions/t5byykgp/minigame-framework-1.0.0.jar",
+    "sha256": "5AE8055642EF80E6A461CB618755B0D84EFE7560E96201FACD2DCB70C33EE9A0",
+    "destination": "plugins/minigame-framework-1.0.0.jar"
+  },
+  {
+    "file": "HideAndHunt-1.6.0.jar",
+    "url": "https://cdn.modrinth.com/data/M5kGx3Is/versions/8VrONaMG/HideAndHunt-1.6.0.jar",
+    "sha256": "90B5F982F3A21B21BA4F993239290100E2A9679AB626262E748992F4D0188703",
+    "destination": "plugins/HideAndHunt-1.6.0.jar"
+  },
+  {
+    "file": "tnt-run-2.9.1.jar",
+    "url": "https://cdn.modrinth.com/data/dQdrxpfx/versions/H80iVBnY/tnt-run-2.9.1.jar",
+    "sha256": "9B191D391E9563CF6773014323107CAC8C0520DB9617CA9CD5ABA6FE77479967",
+    "destination": "plugins/tnt-run-2.9.1.jar"
+  },
+  {
     "file": "ViaVersion-5.12.3.jar",
     "url": "https://cdn.modrinth.com/data/P1OZGk5p/versions/MBRBVfoZ/ViaVersion-5.12.3.jar",
     "sha256": "8DEC6B62C7EC4F355E59175FC8EAEB825719AE8D308723617097DCAAB7073531",
