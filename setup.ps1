@@ -165,12 +165,14 @@ function Add-YamlEntry($Path, $ExistingPattern, $Entry, $Parent = '') {
 }
 
 function Install-AdditionalArenas {
+    $bridgeModes = [ordered]@{ ponte = 1; ponte_2x2 = 2; ponte_3x3 = 3; ponte_4x4 = 4; ponte_4times_solo = 1; ponte_4times_duplas = 2 }
     $worlds = Join-Path $plugins 'Multiverse-Core/worlds.yml'
-    foreach ($name in 'ponte', 'construcao', 'atelie_solo', 'atelie_duplas') {
+    foreach ($name in @($bridgeModes.Keys) + @('construcao', 'atelie_solo', 'atelie_duplas')) {
         $archiveName = $name
         if ($name -like 'atelie_*') { $archiveName = 'construcao' }
+        if ($bridgeModes.Contains($name)) { $archiveName = 'ponte' }
         Install-World (Join-Path $PSScriptRoot "maps/$archiveName.zip") $name $archiveName
-        $pvp = ($name -eq 'ponte').ToString().ToLowerInvariant()
+        $pvp = $bridgeModes.Contains($name).ToString().ToLowerInvariant()
         $spawnX = '0.5'
         $spawnYaw = '0.0'
         if ($pvp -eq 'true') {
@@ -202,9 +204,8 @@ minecraft:${name}:
         Add-YamlEntry $worlds "(?m)^[""']?(?:minecraft:)?${name}[""']?:" $world
     }
 
-    $bridgeArena = [IO.File]::ReadAllText((Join-Path $configs 'arenas/ponte.yml'))
-    Write-NewConfig (Join-Path $plugins 'TheBridge/arenas/ponte.yml') $bridgeArena
     $permissions = Join-Path $server 'permissions.yml'
+    Install-Bridge $bridgeModes $permissions
     foreach ($arena in 'construcao', 'atelie_solo', 'atelie_duplas') {
         $buildArena = [IO.File]::ReadAllText((Join-Path $configs "arenas/$arena.yml")).TrimEnd("`r", "`n")
         Add-YamlEntry (Join-Path $plugins 'BuildBattle/arenas.yml') "(?m)^  [""']?${arena}[""']?:" "$buildArena`n" 'instances'
@@ -236,6 +237,79 @@ minigames.arena-gamemode:
     mv.bypass.gamemode.construcao: true
 '@
     Add-YamlEntry $permissions '(?m)^["'']?minigames\.arena-gamemode["'']?:' $gameModes
+}
+
+function Install-Bridge($Modes, $Permissions) {
+    $directory = Join-Path $plugins 'TheBridge'
+    $oldJar = Join-Path $plugins 'TheBridge-1.1.0.jar'
+    $backup = Join-Path $server 'legacy-thebridge-1.1.0'
+    if (Test-Path -LiteralPath $oldJar) {
+        New-Item -ItemType Directory -Force -Path $backup | Out-Null
+        if (Test-Path -LiteralPath (Join-Path $directory 'arenas')) {
+            [IO.Directory]::Move($directory, (Join-Path $backup 'TheBridge'))
+        }
+        Move-Item -LiteralPath $oldJar -Destination $backup
+    }
+
+    $config = Join-Path $directory 'config.yml'
+    Write-NewConfig $config @'
+Save_Locally: true
+Save_players_inventory: true
+Start_percentage: 1.0
+Waiting_For_Next_Round: 0
+pit_radius: 1
+lobby:
+  enabled: true
+  world: lobby
+  x: 0.5
+  y: 110.0
+  z: 6.5
+  yaw: 180.0
+  pitch: 0.0
+'@
+    $content = [IO.File]::ReadAllText($config)
+    $roundDelay = '(?m)^["'']?Waiting_For_Next_Round["'']?:[ \t]*[^ \t\r\n#]*'
+    $updated = if ($content -cmatch $roundDelay) {
+        $content -creplace $roundDelay, 'Waiting_For_Next_Round: 0'
+    } else {
+        $content.TrimEnd("`r", "`n") + "`nWaiting_For_Next_Round: 0`n"
+    }
+    if ($updated -cne $content) {
+        [IO.File]::WriteAllText($config, $updated, $utf8)
+    }
+    $gameIndex = Join-Path $directory 'data.yml'
+    Write-NewConfig $gameIndex ("games:`n" + (($Modes.Keys | ForEach-Object { "  - $_" }) -join "`n") + "`n")
+    foreach ($name in $Modes.Keys) {
+        $teams = "    team1: 0`n    team2: 1"
+        if ($name -like 'ponte_4times_*') { $teams += "`n    team3: 2`n    team4: 3" }
+        $edge = if ($name -eq 'ponte') { 1 } else { 3 }
+        # The scoring layer (y=97) must be above the plugin's void cutoff (y=96).
+        $arena = @"
+game:
+  world: $name
+  direction: NEG_X
+  center: {x: 0.0, y: 97.0, z: 0.0}
+  pit: {x: -28.0, y: 100.0, z: 0.0}
+  spawn: {x: -22.0, y: 99.0, z: 0.0}
+  respawn: {x: -22.0, y: 99.0, z: 0.0}
+  bridge:
+    size: {y: 0}
+    border: $edge
+  border: 34
+  team:
+    max-players: $($Modes[$name])
+  teams:
+$teams
+"@
+        Write-NewConfig (Join-Path $directory "data/games/$name.yml") $arena
+    }
+    $gameModes = "minigames.bridge-modes:`n  default: true`n  children:`n" +
+        (($Modes.Keys | ForEach-Object { "    mv.bypass.gamemode.${_}: true" }) -join "`n")
+    Add-YamlEntry $Permissions '(?m)^["'']?minigames\.bridge-modes["'']?:' $gameModes
+    $newJar = Join-Path $plugins 'Bridge-4.1.0.jar'
+    if (-not (Test-Path -LiteralPath $newJar)) {
+        [IO.File]::Copy((Join-Path $cache 'Bridge-4.1.0.jar'), $newJar)
+    }
 }
 
 function Install-Server {

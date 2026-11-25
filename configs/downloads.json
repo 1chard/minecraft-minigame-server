@@ -24,10 +24,9 @@
     "destination": "plugins/HungerGames-5.1.1.jar"
   },
   {
-    "file": "TheBridge-1.1.0.jar",
-    "url": "https://cdn.modrinth.com/data/HRVys83b/versions/DUV1myZd/TheBridge-1.1.0.jar",
-    "sha256": "26DDD1672A348FFC8DA99FF24BC10B040823CFF340CD2629BEECA58429330CA0",
-    "destination": "plugins/TheBridge-1.1.0.jar"
+    "file": "Bridge-4.1.0.jar",
+    "url": "https://cdn.modrinth.com/data/vBATRAg0/versions/nbZlBVB5/TheBridge_4.1.0.jar",
+    "sha256": "6594A8D4EBC8A55A2B0DDD04476F8382DEC92E6332BFDB3A36F2DA57340E07F5"
   },
   {
     "file": "BuildBattle-5.1.8.jar",

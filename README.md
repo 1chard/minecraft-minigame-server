@@ -6,7 +6,7 @@ Servidor local de **Minecraft Java Edition 1.21.11** com Paper build 132. O Powe
 | --- | --- | --- |
 | BedWars | ScreamingBedWars 0.2.44 | `ilhas` |
 | Hunger Games | HungerGames 5.1.1 | `first`, `second`, `third` |
-| The Bridge | TheBridge 1.1.0 | `ponte` (1v1, cinco gols) |
+| The Bridge | The Bridge 4.1.0 | 1x1, 2x2, 3x3, 4x4, 1x1x1x1 e 2x2x2x2 |
 | Build Battle | BuildBattle 5.1.8 | `construcao` (Ateliê, dois a quatro jogadores, cinco minutos de construção) |
 | Build Battle | BuildBattle 5.1.8 | `atelie_solo` (Solo, dois a oito jogadores) e `atelie_duplas` (Duplas, quatro a oito jogadores) |
 
@@ -64,8 +64,13 @@ Na primeira inicialização com o datapack, o servidor monta uma praça elevada 
 | `/hg listgames` | Listar as arenas de Hunger Games |
 | `/hg join first` | Entrar em `first`. Use também `second` ou `third`. |
 | `/hg leave` | Sair da fila ou da partida de Hunger Games |
-| `/thebridge join ponte` | Entrar na Ponte 1v1 |
-| `/thebridge leave` | Sair da fila ou da partida de The Bridge |
+| `/tb join ponte` | Ponte 1x1, 2 jogadores |
+| `/tb join ponte_2x2` | Ponte 2x2, 4 jogadores |
+| `/tb join ponte_3x3` | Ponte 3x3, 6 jogadores |
+| `/tb join ponte_4x4` | Ponte 4x4, 8 jogadores |
+| `/tb join ponte_4times_solo` | Quatro times de um jogador |
+| `/tb join ponte_4times_duplas` | Quatro times de dois jogadores |
+| `/tb leave` | Sair da fila ou da partida de The Bridge |
 | `/buildbattle join construcao` | Entrar no Ateliê para construir no criativo e votar |
 | `/buildbattle join atelie_solo` | Entrar no Solo 8, com um jogador por terreno |
 | `/buildbattle join atelie_duplas` | Entrar em Duplas, com até quatro equipes de dois jogadores |
@@ -83,7 +88,7 @@ Pare o servidor, esvazie o valor de `server-ip` em `server-data/server.propertie
 2. Inicie o servidor e use `op SeuNick` no console para administrar pelo Minecraft. No jogo, use `/mv import bw_sakura normal` e `/mv tp bw_sakura`. [Importar mundos com Multiverse](https://mvplugins.org/core/fundamentals/commands-usage/)
 3. Cadastre uma arena com nome próprio. No BedWars, comece com `/bw admin sakura add`, marque os cantos, cadastre equipes, camas, geradores, lojas e os pontos de espera e de espectador, depois execute `/bw admin sakura save`. No Hunger Games, use `/hg create` e `/hg edit` para definir a região e os pontos de início. [Configuração de arena do BedWars](https://docs.screamingsandals.org/BedWars/latest/arena/) · [Configuração do HungerGames](https://github.com/ShaneBeeStudios/HungerGames/wiki)
 
-Para **The Bridge**, importe um mundo com uma ponte e duas bases. Com permissão de administrador, execute `/thebridge create <arena>` dentro desse mundo e use `/thebridge setup <arena>` para marcar a área, os gols, as posições iniciais e a sala de espera. Configure um jogador por equipe para 1v1 e valide com `/thebridge enable <arena>`. [Guia de arena de TheBridge](https://github.com/Kylan1940/TheBridge#arena-setup-example)
+As seis arenas de **The Bridge** têm mundos e filas separados. A contagem regressiva começa quando a fila está cheia. Para cadastrar outra arena, use `/tb create <arena>` com permissão de administrador. O instalador guarda os arquivos e as estatísticas do plugin anterior em `server-data/legacy-thebridge-1.1.0`. [Guia do The Bridge](https://modrinth.com/plugin/the-bridge)
 
 Para **Build Battle**, importe um mundo com terrenos de construção. Use `/bba setup create <arena>` e `/bba setup edit <arena>` para cadastrar a arena individual, os terrenos e os pontos de espera e retorno. Libere a permissão `buildbattle.join.<arena>` para os jogadores. [Projeto BuildBattle](https://github.com/Plugily-Projects/BuildBattle)
 
